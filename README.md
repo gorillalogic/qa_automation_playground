@@ -22,9 +22,10 @@ bash deploy.sh
 | Swagger URL 	| http://0.0.0.0:8085/rest-api/docs  	|
 | GraphQL API URL 	| http://0.0.0.0:8085/graphql 	|
 | Rest API URL 	| http://0.0.0.0:8085/wp-json/wc/v3/ 	|
+| GraphQL IDE 	| http://0.0.0.0:8085/wp-admin/admin.php?page=graphiql-ide  	|
 
 # Documents, references
 - Woocommerce Rest API documentation: https://woocommerce.github.io/woocommerce-rest-api-docs/#introduction 
-- GraphQL documentation: 
+- GraphQL documentation: http://0.0.0.0:8085/wp-admin/admin.php?page=graphiql-ide 
 
 # That's it, have fun!!!
