@@ -1,0 +1,51 @@
+version: "3.0"
+
+services:
+  nginx-proxy:
+     image: jwilder/nginx-proxy
+     ports:
+       - "80:80"
+     volumes:
+       - /var/run/docker.sock:/tmp/docker.sock:ro
+     networks:
+        - wordpress-net
+     restart: always
+
+  database:
+    image: ovalerio/automation_playground_db:v1
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      VIRTUAL_HOST: 52.14.147.231
+    networks:
+        - wordpress-net
+
+  wordpress:
+    image: ovalerio/automation_playground_woocommerce:v1
+    depends_on:
+      - database
+    expose:
+        - "80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      VIRTUAL_HOST: 52.14.147.231
+    volumes:
+      - ./wordpress_html:/var/www/html
+      - ./wordpress_html/wp-content:/var/www/html/wp-content
+    networks:
+        - wordpress-net
+
+volumes:
+  wordpress:
+  db_data:
+networks:
+    wordpress-net:
